@@ -1,63 +1,63 @@
 # OTUS9_BASH
 Homework
 
-Установил необходимое ПО
-yum install epel-release -y && yum install ssmtp -y && yum install wget -y
+РЈСЃС‚Р°РЅРѕРІРёР» РЅРµРѕР±С…РѕРґРёРјРѕРµ РџРћ  
+yum install epel-release -y && yum install ssmtp -y && yum install wget -y  
 
-Настроил ssmtp
-#Configure ssmtp
-cat << EOF >>  /etc/ssmtp/ssmtp.conf
-#!/bin/bash
-root=trashscum@list.ru
-mailhub=smtp.mail.ru:465
-AuthUser=trashscum@list.ru
-AuthPass=xVTeBPPNpJ34f5P5hjXh
-AuthMethod=LOGIN
-UseTLS=YES
-EOF
+РќР°СЃС‚СЂРѕРёР» ssmtp  
+#Configure ssmtp  
+cat << EOF >>  /etc/ssmtp/ssmtp.conf  
+#!/bin/bash  
+root=trashscum@list.ru  
+mailhub=smtp.mail.ru:465  
+AuthUser=trashscum@list.ru  
+AuthPass=xVTeBPPNpJ34f5P5hjXh  
+AuthMethod=LOGIN  
+UseTLS=YES  
+EOF  
 
-echo root:trashscum@list.ru:smtp.mail.ru:465 >> /etc/ssmtp/revaliases
+echo root:trashscum@list.ru:smtp.mail.ru:465 >> /etc/ssmtp/revaliases  
 
-Загрузил исходный лог файл
-wget https://raw.githubusercontent.com/Vozmen/OTUS9_BASH/main/access-4560-644067.log -O /media/a.log
+Р—Р°РіСЂСѓР·РёР» РёСЃС…РѕРґРЅС‹Р№ Р»РѕРі С„Р°Р№Р»  
+wget https://raw.githubusercontent.com/Vozmen/OTUS9_BASH/main/access-4560-644067.log -O /media/a.log  
 
-Создал скрипт, выдергивающий из лог файла необходимые данные
-cat << EOF > /media/s.sh
-#!/bin/bash
-echo "#Обрабатываемый временной промежуток" > /media/log.log
-cat /media/a.log | cut -d " " -f 4 | sort | sed -n '1 p; $ p;' | sed -e 's/^.//' >> /media/log.log
-echo " " >> /media/log.log
-echo "#Самое запрашиваемое доменное имя" >> /media/log.log
-cat /media/a.log | grep GET | grep -oE https?:\/\/[a-z]*[.][a-z]* | sort -rn |uniq -c |sort -rn | sed 's/^ *//' | sed -e '1! d' >> /media/log.log
-echo " " >> /media/log.log
-echo "#Самый запрашиваемый IP" >> /media/log.log
-cat /media/a.log | grep GET | sort | cut -d " " -f 1 | uniq -c | sort -rn | sed 's/^ *//' | sed -e '1! d' >> /media/log.log
-echo " " >> /media/log.log
-echo "#Все коды возврата" >> /media/log.log >> /media/log.log
-cat /media/a.log | grep -oE 'HTTP/1.1\" [0-9][0-9][0-9]' | cut -d " " -f 2 | sort -rn | uniq -c | sort -rn | sed 's/^ *//' >> /media/log.log
-echo " " >> /media/log.log
-echo "#Коды возврата ошибок" >> /media/log.log
-cat /media/a.log | grep -oE 'HTTP/1.1\" [0-9][0-9][0-9]' | cut -d " " -f 2 | grep -E "(4[0-9][0-9]|5[0-9][0-9])" | sort -rn | uniq -c | sort -rn | sed 's/^ *//' >> /media/log.log
-EOF
+РЎРѕР·РґР°Р» СЃРєСЂРёРїС‚, РІС‹РґРµСЂРіРёРІР°СЋС‰РёР№ РёР· Р»РѕРі С„Р°Р№Р»Р° РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР°РЅРЅС‹Рµ  
+cat << EOF > /media/s.sh  
+#!/bin/bash  
+echo "#РћР±СЂР°Р±Р°С‚С‹РІР°РµРјС‹Р№ РІСЂРµРјРµРЅРЅРѕР№ РїСЂРѕРјРµР¶СѓС‚РѕРє" > /media/log.log  
+cat /media/a.log | cut -d " " -f 4 | sort | sed -n '1 p; $ p;' | sed -e 's/^.//' >> /media/log.log  
+echo " " >> /media/log.log  
+echo "#РЎР°РјРѕРµ Р·Р°РїСЂР°С€РёРІР°РµРјРѕРµ РґРѕРјРµРЅРЅРѕРµ РёРјСЏ" >> /media/log.log  
+cat /media/a.log | grep GET | grep -oE https?:\/\/[a-z]*[.][a-z]* | sort -rn |uniq -c |sort -rn | sed 's/^ *//' | sed -e '1! d' >> /media/log.log  
+echo " " >> /media/log.log  
+echo "#РЎР°РјС‹Р№ Р·Р°РїСЂР°С€РёРІР°РµРјС‹Р№ IP" >> /media/log.log  
+cat /media/a.log | grep GET | sort | cut -d " " -f 1 | uniq -c | sort -rn | sed 's/^ *//' | sed -e '1! d' >> /media/log.log  
+echo " " >> /media/log.log  
+echo "#Р’СЃРµ РєРѕРґС‹ РІРѕР·РІСЂР°С‚Р°" >> /media/log.log >> /media/log.log  
+cat /media/a.log | grep -oE 'HTTP/1.1\" [0-9][0-9][0-9]' | cut -d " " -f 2 | sort -rn | uniq -c | sort -rn | sed 's/^ *//' >> /media/log.log  
+echo " " >> /media/log.log  
+echo "#РљРѕРґС‹ РІРѕР·РІСЂР°С‚Р° РѕС€РёР±РѕРє" >> /media/log.log  
+cat /media/a.log | grep -oE 'HTTP/1.1\" [0-9][0-9][0-9]' | cut -d " " -f 2 | grep -E "(4[0-9][0-9]|5[0-9][0-9])" | sort -rn | uniq -c | sort -rn | sed 's/^ *//' >> /media/log.log  
+EOF  
 
-Дал полные права на его исполнение
-chmod +x /media/s.sh
+Р”Р°Р» РїРѕР»РЅС‹Рµ РїСЂР°РІР° РЅР° РµРіРѕ РёСЃРїРѕР»РЅРµРЅРёРµ  
+chmod +x /media/s.sh  
 
-Создал скрипт для cron. В этом моменте происходит проверка на незавершенный цикл
-cat << EOF > /media/cs.sh
-#!/bin/bash
-if [[ -e /media/lockfile ]]; then
-  exit 1
-else
-touch /media/lockfile
-/media/s.sh
-echo "Log file" | /sbin/ssmtp -v -s trashscum@list.ru -a < /media/log.log
-rm /media/lockfile -f
-fi
-EOF
+РЎРѕР·РґР°Р» СЃРєСЂРёРїС‚ РґР»СЏ cron. Р’ СЌС‚РѕРј РјРѕРјРµРЅС‚Рµ РїСЂРѕРёСЃС…РѕРґРёС‚ РїСЂРѕРІРµСЂРєР° РЅР° РЅРµР·Р°РІРµСЂС€РµРЅРЅС‹Р№ С†РёРєР»  
+cat << EOF > /media/cs.sh  
+#!/bin/bash  
+if [[ -e /media/lockfile ]]; then  
+  exit 1  
+else  
+touch /media/lockfile  
+/media/s.sh  
+echo "Log file" | /sbin/ssmtp -v -s trashscum@list.ru -a < /media/log.log  
+rm /media/lockfile -f  
+fi  
+EOF  
 
-Дал полные права на его исполнение
-chmod +x /media/cs.sh
+Р”Р°Р» РїРѕР»РЅС‹Рµ РїСЂР°РІР° РЅР° РµРіРѕ РёСЃРїРѕР»РЅРµРЅРёРµ  
+chmod +x /media/cs.sh  
 
-Добавил запись в cron
-echo '*/1 */1 * * * /media/cs.sh' >>  /var/spool/cron/root
+Р”РѕР±Р°РІРёР» Р·Р°РїРёСЃСЊ РІ cron  
+echo '*/1 */1 * * * /media/cs.sh' >>  /var/spool/cron/root  
