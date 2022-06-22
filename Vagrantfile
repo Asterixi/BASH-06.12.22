@@ -10,6 +10,6 @@ Vagrant.configure(2) do |config|
 	end
 		config.vm.define "bash" do |bash|
 			bash.vm.hostname = "bash"
-			#bash.vm.provision "shell", path: "script.sh"
+			bash.vm.provision "shell", path: "script.sh"
 	end
 end

@@ -1,10 +1,6 @@
-# OTUS9_BASH
-Homework
-
-Установил необходимое ПО
+#Install soft
 yum install epel-release -y && yum install ssmtp -y && yum install wget -y
 
-Настроил ssmtp
 #Configure ssmtp
 cat << EOF >>  /etc/ssmtp/ssmtp.conf
 #!/bin/bash
@@ -18,10 +14,10 @@ EOF
 
 echo root:trashscum@list.ru:smtp.mail.ru:465 >> /etc/ssmtp/revaliases
 
-Загрузил исходный лог файл
+#Download logfile
 wget https://raw.githubusercontent.com/Vozmen/OTUS9_BASH/main/access-4560-644067.log -O /media/a.log
 
-Создал скрипт, выдергивающий из лог файла необходимые данные
+#Create script
 cat << EOF > /media/s.sh
 #!/bin/bash
 echo "#Обрабатываемый временной промежуток" > /media/log.log
@@ -40,10 +36,10 @@ echo "#Коды возврата ошибок" >> /media/log.log
 cat /media/a.log | grep -oE 'HTTP/1.1\" [0-9][0-9][0-9]' | cut -d " " -f 2 | grep -E "(4[0-9][0-9]|5[0-9][0-9])" | sort -rn | uniq -c | sort -rn | sed 's/^ *//' >> /media/log.log
 EOF
 
-Дал полные права на его исполнение
+#Script rights
 chmod +x /media/s.sh
 
-Создал скрипт для cron. В этом моменте происходит проверка на незавершенный цикл
+#Config script for Cron
 cat << EOF > /media/cs.sh
 #!/bin/bash
 if [[ -e /media/lockfile ]]; then
@@ -56,8 +52,8 @@ rm /media/lockfile -f
 fi
 EOF
 
-Дал полные права на его исполнение
+#Script rights
 chmod +x /media/cs.sh
 
-Добавил запись в cron
+#Config cron
 echo '*/1 */1 * * * /media/cs.sh' >>  /var/spool/cron/root
