@@ -56,4 +56,4 @@ EOF
 chmod +x /media/cs.sh
 
 #Config cron
-echo '*/1 */1 * * * /media/cs.sh' >>  /var/spool/cron/root
+echo '* */1 * * * /media/cs.sh' >>  /var/spool/cron/root
