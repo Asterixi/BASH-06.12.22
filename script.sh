@@ -20,19 +20,19 @@ wget https://raw.githubusercontent.com/Vozmen/OTUS9_BASH/main/access-4560-644067
 #Create script
 cat << EOF > /media/s.sh
 #!/bin/bash
-echo "#Îáðàáàòûâàåìûé âðåìåííîé ïðîìåæóòîê" > /media/log.log
+echo "#ÃŽÃ¡Ã°Ã Ã¡Ã Ã²Ã»Ã¢Ã Ã¥Ã¬Ã»Ã© Ã¢Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã®Ã© Ã¯Ã°Ã®Ã¬Ã¥Ã¦Ã³Ã²Ã®Ãª" > /media/log.log
 cat /media/a.log | cut -d " " -f 4 | sort | sed -n '1 p; $ p;' | sed -e 's/^.//' >> /media/log.log
 echo " " >> /media/log.log
-echo "#Ñàìîå çàïðàøèâàåìîå äîìåííîå èìÿ" >> /media/log.log
+echo "#Ã‘Ã Ã¬Ã®Ã¥ Ã§Ã Ã¯Ã°Ã Ã¸Ã¨Ã¢Ã Ã¥Ã¬Ã®Ã¥ Ã¤Ã®Ã¬Ã¥Ã­Ã­Ã®Ã¥ Ã¨Ã¬Ã¿" >> /media/log.log
 cat /media/a.log | grep GET | grep -oE https?:\/\/[a-z]*[.][a-z]* | sort -rn |uniq -c |sort -rn | sed 's/^ *//' | sed -e '1! d' >> /media/log.log
 echo " " >> /media/log.log
-echo "#Ñàìûé çàïðàøèâàåìûé IP" >> /media/log.log
+echo "#Ã‘Ã Ã¬Ã»Ã© Ã§Ã Ã¯Ã°Ã Ã¸Ã¨Ã¢Ã Ã¥Ã¬Ã»Ã© IP" >> /media/log.log
 cat /media/a.log | grep GET | sort | cut -d " " -f 1 | uniq -c | sort -rn | sed 's/^ *//' | sed -e '1! d' >> /media/log.log
 echo " " >> /media/log.log
-echo "#Âñå êîäû âîçâðàòà" >> /media/log.log >> /media/log.log
+echo "#Ã‚Ã±Ã¥ ÃªÃ®Ã¤Ã» Ã¢Ã®Ã§Ã¢Ã°Ã Ã²Ã " >> /media/log.log >> /media/log.log
 cat /media/a.log | grep -oE 'HTTP/1.1\" [0-9][0-9][0-9]' | cut -d " " -f 2 | sort -rn | uniq -c | sort -rn | sed 's/^ *//' >> /media/log.log
 echo " " >> /media/log.log
-echo "#Êîäû âîçâðàòà îøèáîê" >> /media/log.log
+echo "#ÃŠÃ®Ã¤Ã» Ã¢Ã®Ã§Ã¢Ã°Ã Ã²Ã  Ã®Ã¸Ã¨Ã¡Ã®Ãª" >> /media/log.log
 cat /media/a.log | grep -oE 'HTTP/1.1\" [0-9][0-9][0-9]' | cut -d " " -f 2 | grep -E "(4[0-9][0-9]|5[0-9][0-9])" | sort -rn | uniq -c | sort -rn | sed 's/^ *//' >> /media/log.log
 EOF
 
@@ -56,4 +56,4 @@ EOF
 chmod +x /media/cs.sh
 
 #Config cron
-echo '*/1 */1 * * * /media/cs.sh' >>  /var/spool/cron/root
+echo '* */1 * * * /media/cs.sh' >>  /var/spool/cron/root
