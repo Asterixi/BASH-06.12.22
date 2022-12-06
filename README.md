@@ -1,4 +1,4 @@
-# OTUS9_BASH
+# OTUS_BASH
 Homework
 
 Установил необходимое ПО  
@@ -8,18 +8,18 @@ yum install epel-release -y && yum install ssmtp -y && yum install wget -y
 #Configure ssmtp  
 cat << EOF >>  /etc/ssmtp/ssmtp.conf  
 #!/bin/bash  
-root=trashscum@list.ru  
+root=NNMZB@list.ru  
 mailhub=smtp.mail.ru:465  
-AuthUser=trashscum@list.ru  
-AuthPass=xVTeBPPNpJ34f5P5hjXh  
+AuthUser=Asterix_i@mail.ru  
+AuthPass=JxtymLkbyysqGfhjkm7  
 AuthMethod=LOGIN  
 UseTLS=YES  
 EOF  
 
-echo root:trashscum@list.ru:smtp.mail.ru:465 >> /etc/ssmtp/revaliases  
+echo root:NNMZB@list.ru:smtp.mail.ru:465 >> /etc/ssmtp/revaliases  
 
 Загрузил исходный лог файл  
-wget https://raw.githubusercontent.com/Vozmen/OTUS9_BASH/main/access-4560-644067.log -O /media/a.log  
+wget https://https://github.com/Asterixi/BASH-06.12.22/.log -O /media/a.log  
 
 Создал скрипт, выдергивающий из лог файла необходимые данные  
 cat << EOF > /media/s.sh  
@@ -51,7 +51,7 @@ if [[ -e /media/lockfile ]]; then
 else  
 touch /media/lockfile  
 /media/s.sh  
-echo "Log file" | /sbin/ssmtp -v -s trashscum@list.ru -a < /media/log.log  
+echo "Log file" | /sbin/ssmtp -v -s NNMZB@list.ru -a < /media/log.log  
 rm /media/lockfile -f  
 fi  
 EOF  
